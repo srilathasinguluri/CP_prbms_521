@@ -1,42 +1,42 @@
-package dsa;
+import java.util.*;
 
-public class stackusingarray {
-    private int maxSize;
-    private int[] stackArray;
+public class ArrayStack {
+    private int[] stack;
     private int top;
+    private int capacity;
 
     // Constructor to initialize the stack
-    public stackusingarray(int size) {
-        maxSize = size;
-        stackArray = new int[maxSize];
+    public ArrayStack(int capacity) {
+        this.capacity = capacity;
+        stack = new int[capacity];
         top = -1;
     }
 
     // Method to push an element onto the stack
-    public void push(int value) {
+    public void push(int item) {
         if (isFull()) {
-            System.out.println("Stack is full. Cannot push element.");
+            System.out.println("Stack is full. Cannot push.");
             return;
         }
-        stackArray[++top] = value;
+        stack[++top] = item;
     }
 
     // Method to pop an element from the stack
     public int pop() {
         if (isEmpty()) {
-            System.out.println("Stack is empty. Cannot pop element.");
+            System.out.println("Stack is empty. Cannot pop.");
             return -1;
         }
-        return stackArray[top--];
+        return stack[top--];
     }
 
-    // Method to peek the top element of the stack without removing it
+    // Method to peek at the top element of the stack without removing it
     public int peek() {
         if (isEmpty()) {
-            System.out.println("Stack is empty. No element to peek.");
+            System.out.println("Stack is empty. Cannot peek.");
             return -1;
         }
-        return stackArray[top];
+        return stack[top];
     }
 
     // Method to check if the stack is empty
@@ -46,25 +46,71 @@ public class stackusingarray {
 
     // Method to check if the stack is full
     public boolean isFull() {
-        return top == maxSize - 1;
+        return top == capacity - 1;
     }
-    public void printArray() {
-        System.out.println("Contents of the stack array:");
+
+    // Method to display the elements of the stack
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty.");
+            return;
+        }
+        System.out.print("Stack: ");
         for (int i = 0; i <= top; i++) {
-            System.out.println(stackArray[i]);
+            System.out.print(stack[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the capacity of the stack: ");
+        int capacity = scanner.nextInt();
+
+        ArrayStack stack = new ArrayStack(capacity);
+
+        while (true) {
+            System.out.println("\nChoose an operation:");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter element to push: ");
+                    int element = scanner.nextInt();
+                    stack.push(element);
+                    break;
+                case 2:
+                    int poppedElement = stack.pop();
+                    if (poppedElement != -1) {
+                        System.out.println("Popped element: " + poppedElement);
+                    }
+                    break;
+                case 3:
+                    int topElement = stack.peek();
+                    if (topElement != -1) {
+                        System.out.println("Top element: " + topElement);
+                    }
+                    break;
+                case 4:
+                    stack.display();
+                    break;
+                case 5:
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
         }
     }
-    public static void main(String[] args) {
-        stackusingarray stack = new stackusingarray(5);
-
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        
-        
-        stack.printArray();
-    }
 }
+
+        
 
 
 
