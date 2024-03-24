@@ -5,7 +5,7 @@ public class ArrayStack {
     private int top;
     private int capacity;
 
-    // Constructor to initialize the stack
+    // Constructor to initialize the stack.
     public ArrayStack(int capacity) {
         this.capacity = capacity;
         stack = new int[capacity];
